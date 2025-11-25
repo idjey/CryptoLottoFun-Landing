@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect, useMemo, type FC } from 'react';
-import { Bitcoin, CircleDollarSign } from 'lucide-react';
-import { EthereumIcon, DogecoinIcon } from '@/components/crypto-icons';
+import { useState, useEffect, type FC } from 'react';
+import { BitcoinIcon, EthereumIcon, DogecoinIcon, CurrencyIcon } from '@/components/crypto-icons';
 
-const ICONS: FC<any>[] = [Bitcoin, EthereumIcon, DogecoinIcon, CircleDollarSign];
+const ICONS: FC<any>[] = [BitcoinIcon, EthereumIcon, DogecoinIcon, CurrencyIcon];
 const NUM_ICONS = 40;
 
 interface CryptoSymbol {
