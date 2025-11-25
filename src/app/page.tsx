@@ -77,11 +77,11 @@ export default function Home() {
       )}
 
       <div className={`relative z-10 flex flex-col items-center transition-opacity duration-1000 ${gameStarted ? 'opacity-0' : 'opacity-100'}`}>
-        <div className="relative font-headline text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider text-primary">
+        <div className="relative font-headline text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider text-primary flex justify-center">
           <div className={`transition-transform duration-1000 ease-in-out ${gameStarted ? '-translate-x-full' : 'translate-x-0'}`}>
             Crypto
           </div>
-          <div className={`absolute top-0 left-0 w-full h-full transition-transform duration-1000 ease-in-out ${gameStarted ? 'translate-x-full' : 'translate-x-0'}`}>
+          <div className={`transition-transform duration-1000 ease-in-out ${gameStarted ? 'translate-x-full' : 'translate-x-0'}`}>
             LottoFun
           </div>
         </div>
