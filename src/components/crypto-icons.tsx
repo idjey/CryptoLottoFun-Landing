@@ -11,27 +11,6 @@ export const EthereumIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export const DogecoinIcon = (props: SVGProps<SVGSVGElement>) => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24" 
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        {...props}
-    >
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 12a5 5 0 0 0-5 5" />
-        <path d="M17 12a5 5 0 0 1-5 5" />
-        <path d="M12 12a5 5 0 0 1 5-5" />
-        <path d="M7 12a5' 5 0 0 0 5-5" />
-        <path d="m7 7 2 2" />
-        <path d="m17 7-2 2" />
-    </svg>
-);
-
 export const BitcoinIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 256 238"
@@ -43,7 +22,7 @@ export const BitcoinIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export const CurrencyIcon = (props: SVGProps<SVGSVGElement>) => (
+export const UsdcIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg
       data-name="86977684-12db-4850-8f30-233a7c267d11"
       xmlns="http://www.w3.org/2000/svg"
@@ -101,13 +80,13 @@ export const BinanceIcon = (props: SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
-export const TetherIcon = (props: SVGProps<SVGSVGElement>) => (
+export const TronIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 339.43 295.27"
+        viewBox="0 0 24 24" 
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
         {...props}
     >
-        <path d="M62.15,1.45l-61.89,130a2.52,2.52,0,0,0,.54,2.94L167.95,294.56a2.55,2.55,0,0,0,3.53,0L338.63,134.4a2.52,2_52,0,0,0,.54-2.94l-61.89-130A2.5,2.5,0,0,0,275,0H64.45a2.5,2.5,0,0,0-2.3,1.45h0Z" style={{fill:'#50af95', fillRule:'evenodd'}}/>
-        <path d="M191.19,144.8v0c-1.2.09-7.4,0.46-21.23,0.46-11,0-18.81-.33-21.55-0.46v0c-42.51-1.87-74.24-9.27-74.24-18.13s31.73-16.25,74.24-18.15v28.91c2.78,0.2,10.74.67,21.74,0.67,13.2,0,19.81-.55,21-0.66v-28.9c42.42,1.89,74.08,9.29,74.08,18.13s-31.65,16.24-74.08,18.12h0Zm0-39.25V79.68h59.2V40.23H89.21V79.68H148.4v25.86c-48.11,2.21-84.29,11.74-84.29,23.16s36.18,20.94,84.29,23.16v82.9h42.78V151.83c48-2.21,84.12-11.73,84.12-23.14s-36.09-20.93-84.12-23.15h0Zm0,0h0Z" style={{fill:'#fff', fillRule:'evenodd'}}/>
+        <path d="M22.37 13.41l-1.12-2.43-6.5-2.8-2.06-9.17h-.02a.4.4 0 00-.74 0h-.02l-2.05 9.17-6.5 2.8-1.12 2.43a.41.41 0 00.15.52l9.4 4.14h.02a.4.4 0 00.36 0h.02l9.4-4.14a.41.41 0 00.15-.52zM12 11.22l5.06 2.19-5.06 2.22-5.06-2.22L12 11.22z" />
     </svg>
 );
