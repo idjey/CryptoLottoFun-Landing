@@ -1,9 +1,16 @@
 "use client";
 
 import { useState } from 'react';
+import { Info } from 'lucide-react';
 import FallingCrypto from '@/components/falling-crypto';
 import Scoreboard from '@/components/scoreboard';
 import { Button } from '@/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { type CryptoSymbol } from '@/components/falling-crypto';
 
 export type CollectedCoins = {
@@ -51,7 +58,19 @@ export default function Home() {
           <div className="absolute top-4 left-4 z-20">
             <Scoreboard collectedCoins={collectedCoins} />
           </div>
-          <div className="absolute top-4 right-4 z-20">
+          <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="icon" className="h-9 w-9">
+                    <Info className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Click on the falling icons to collect them!</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <Button onClick={(e) => { e.stopPropagation(); resetGame(); }}>Reset</Button>
           </div>
         </>
@@ -63,7 +82,7 @@ export default function Home() {
             Crypto
           </div>
           <div className={`absolute top-0 left-0 w-full h-full transition-transform duration-1000 ease-in-out ${gameStarted ? 'translate-x-full' : 'translate-x-0'}`}>
-            Lotto Fun
+            LottoFun
           </div>
         </div>
 
