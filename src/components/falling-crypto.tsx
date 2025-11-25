@@ -52,25 +52,29 @@ const FallingCrypto = () => {
         prevSymbols.map(symbol => {
           let newY = symbol.y + symbol.speed;
           let newX = symbol.x;
+          let newOpacity = symbol.opacity;
+          let newSpeed = symbol.speed;
+          let newSize = symbol.size;
+          let newIcon = symbol.Icon;
 
           // Reset when it goes off-screen
           if (newY > 110) {
-            newY = Math.random() * -10 - 5;
-            newX = Math.random() * 100;
+            newY = Math.random() * -20 - 5; // Reset further up
+            newX = Math.random() * 100; // New random horizontal position
+            newSpeed = Math.random() * 0.5 + 0.2; // New random speed
+            newSize = Math.random() * 24 + 16; // New random size
+            newOpacity = Math.random() * 0.2 + 0.2; // New random opacity
+            newIcon = ICONS[Math.floor(Math.random() * ICONS.length)]; // New random icon
           }
-
-          // Fade out at the bottom
-          const fadeStart = 70; // Start fading at 70% of screen height
-          const newOpacity =
-            newY > fadeStart
-              ? symbol.opacity * (1 - (newY - fadeStart) / (100 - fadeStart))
-              : symbol.opacity;
 
           return {
             ...symbol,
             y: newY,
             x: newX,
-            opacity: Math.max(0, newOpacity),
+            opacity: newOpacity,
+            speed: newSpeed,
+            size: newSize,
+            Icon: newIcon,
           };
         })
       );
