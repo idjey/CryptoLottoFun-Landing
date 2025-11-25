@@ -1,74 +1,125 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useState, useEffect, type FC } from 'react';
+import { BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon, TronIcon, TetherIcon } from '@/components/crypto-icons';
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
+export const ICONS: FC<any>[] = [BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon, TronIcon, TetherIcon];
+const NUM_ICONS = 40;
 
-const FormSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-});
+export interface CryptoSymbol {
+  id: number;
+  Icon: FC<any>;
+  x: number;
+  y: number;
+  size: number;
+  speed: number;
+  opacity: number;
+}
 
-export default function SignupForm() {
-  const { toast } = useToast();
+interface FallingCryptoProps {
+  gameStarted: boolean;
+  onCollectCoin: (coin: CryptoSymbol) => void;
+}
 
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      email: "",
-    },
-  });
+const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
+  const [symbols, setSymbols] = useState<CryptoSymbol[]>([]);
+  const [screenHeight, setScreenHeight] = useState(0);
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("Form submitted with:", data);
-    toast({
-      title: "Thank you for signing up!",
-      description: `We'll notify ${data.email} when we launch.`,
-    });
-    form.reset();
-  }
+  useEffect(() => {
+    setScreenHeight(window.innerHeight);
+    const handleResize = () => setScreenHeight(window.innerHeight);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const resetSymbol = (symbol: CryptoSymbol): CryptoSymbol => {
+    return {
+      ...symbol,
+      y: Math.random() * -20 - 5,
+      x: Math.random() * 100,
+      speed: Math.random() * 0.5 + 0.2,
+      size: Math.random() * 24 + 16,
+      opacity: gameStarted ? (Math.random() * 0.5 + 0.5) : (Math.random() * 0.2 + 0.2), // More opaque when game starts
+      Icon: ICONS[Math.floor(Math.random() * ICONS.length)],
+    };
+  };
+
+  useEffect(() => {
+    if (screenHeight > 0) {
+      const initialSymbols = Array.from({ length: NUM_ICONS }, (_, i) => {
+        const baseSymbol = {
+          id: i,
+          Icon: ICONS[i % ICONS.length],
+          x: Math.random() * 100,
+          y: Math.random() * -100 - 20,
+          size: Math.random() * 24 + 16,
+          speed: Math.random() * 0.5 + 0.2,
+          opacity: Math.random() * 0.2 + 0.2,
+        };
+        return baseSymbol;
+      });
+      setSymbols(initialSymbols);
+    }
+  }, [screenHeight]);
+
+  useEffect(() => {
+    if (gameStarted) {
+        setSymbols(s => s.map(symbol => ({ ...symbol, opacity: Math.random() * 0.5 + 0.5 })));
+    }
+  }, [gameStarted]);
+
+  useEffect(() => {
+    if (symbols.length === 0) return;
+
+    let animationFrameId: number;
+
+    const animate = () => {
+      setSymbols(prevSymbols =>
+        prevSymbols.map(symbol => {
+          let newY = symbol.y + symbol.speed;
+          if (newY > 110) {
+            return resetSymbol(symbol);
+          }
+          return { ...symbol, y: newY };
+        })
+      );
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [symbols.length]);
+
+  const handleIconClick = (e: React.MouseEvent, symbol: CryptoSymbol) => {
+    e.stopPropagation();
+    if (!gameStarted) return;
+    onCollectCoin(symbol);
+    setSymbols(prev => prev.map(s => s.id === symbol.id ? resetSymbol(s) : s));
+  };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
-        <div className="flex w-full items-start space-x-2">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="flex-grow">
-                  <FormControl>
-                    <Input 
-                        placeholder="Enter your email for launch updates" 
-                        {...field}
-                        className="h-12 text-base border-primary/20 focus:border-primary focus:ring-primary/50 bg-background/50 backdrop-blur-sm"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button 
-                type="submit" 
-                className="h-12 text-lg font-bold text-primary-foreground bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity duration-300"
-                disabled={form.formState.isSubmitting}
-            >
-                Notify Me
-            </Button>
-        </div>
-      </form>
-    </Form>
+    <div className="absolute inset-0 z-0">
+      {symbols.map((symbol) => (
+        <symbol.Icon
+          key={symbol.id}
+          className={`absolute text-primary transition-all duration-300 ${gameStarted ? 'cursor-pointer hover:scale-125 hover:opacity-100' : 'pointer-events-none'}`}
+          style={{
+            left: `${symbol.x}vw`,
+            top: `${symbol.y}vh`,
+            width: `${symbol.size}px`,
+            height: `${symbol.size}px`,
+            opacity: symbol.opacity,
+            filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.7))',
+            willChange: 'transform, opacity',
+          }}
+          onClick={(e: React.MouseEvent) => handleIconClick(e, symbol)}
+        />
+      ))}
+    </div>
   );
-}
+};
+
+export default FallingCrypto;

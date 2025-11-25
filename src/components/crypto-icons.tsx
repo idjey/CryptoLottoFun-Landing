@@ -1,4 +1,4 @@
-import type { SVGProps } from 'react';
+import type { SVGProps, FC } from 'react';
 
 export const EthereumIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -10,6 +10,8 @@ export const EthereumIcon = (props: SVGProps<SVGSVGElement>) => (
     <path d="M 6.972,9.985 3.29,7.81 6.9715,13 l 3.685,-5.19 -3.686,2.175 0.0015,0 z M 7.028,1 3.345,7.1115 7.0275,9.2885 10.71,7.1135 7.028,1 Z"/>
   </svg>
 );
+EthereumIcon.displayName = 'EthereumIcon';
+
 
 export const BitcoinIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -21,6 +23,8 @@ export const BitcoinIcon = (props: SVGProps<SVGSVGElement>) => (
     <path d="M122.7,109.9l0.1-30.1c8.5,0,35.2-2.6,35.2,15.2C157.9,112,131.2,109.9,122.7,109.9z M164.8,141.8L164.8,141.8	c0.1-19.5-32-16.7-42.2-16.7l-0.1,33.2C132.7,158.3,164.8,160.5,164.8,141.8z M10.6,119.9C10.6,54.9,62.8,2,127.8,2	c65,0,117.5,52.5,117.5,117.5c0,65-52.9,117.5-117.5,117.5S10.6,184.6,10.6,119.9z M98.1,113.5c-0.5,0-1,0-1.6,0L96.3,153	c-0.3,1.9-1.4,5-5.7,5c0.2,0.2-11,0-11,0l-3.1,18l19.6,0.1c3.7,0,7.2,0.1,10.8,0.1l-0.1,25l15.1,0.1l0.1-24.8	c4.1,0.1,8.1,0.1,12,0.2l-0.1,24.7l15.1,0.1l0.1-25c25.3-1.4,43.1-7.7,45.4-31.5c1.8-19.2-7.1-27.7-21.5-31.2	c8.8-4.4,14.2-12.2,13-25.3h0c-1.7-17.9-17-23.9-36.5-25.7l0.1-24.8l-15.1-0.1L134.5,62c-4,0-8,0.1-12,0.1l0.1-24.3l-15.1-0.1	l-0.1,24.8c-3.3,0.1-6.5,0.1-9.6,0.1l0-0.1l-20.8-0.1L77,78.5c0,0,11.1-0.2,10.9,0c6.1,0,8.1,3.6,8.6,6.6l-0.1,28.2	C96.9,113.4,97.5,113.4,98.1,113.5z" />
   </svg>
 );
+BitcoinIcon.displayName = 'BitcoinIcon';
+
 
 export const UsdcIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg
@@ -43,6 +47,8 @@ export const UsdcIcon = (props: SVGProps<SVGSVGElement>) => (
       />
     </svg>
 );
+UsdcIcon.displayName = 'UsdcIcon';
+
 
 
 export const SolanaIcon = (props: SVGProps<SVGSVGElement>) => (
@@ -65,6 +71,8 @@ export const SolanaIcon = (props: SVGProps<SVGSVGElement>) => (
         </defs>
     </svg>
 );
+SolanaIcon.displayName = 'SolanaIcon';
+
 
 export const BinanceIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg
@@ -79,6 +87,8 @@ export const BinanceIcon = (props: SVGProps<SVGSVGElement>) => (
         <path fill="#FFFFFF" d="M1692.1,986.4l0.9,193.2l-281.2,165v330.8l-163.3,95.7l-163.3-95.7v-330.8l-281.2-165V986.4 L968,889.8l279.5,165.8l281.2-165.8l164.1,96.6H1692.1L1692.1,986.4z M803.9,656.5l443.7-261.6l444.5,261.6l-163.3,96.6 l-281.2-165.8L967.2,753.1L803.9,656.5L803.9,656.5z"/>
     </svg>
 );
+BinanceIcon.displayName = 'BinanceIcon';
+
 
 export const TronIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -190,7 +200,8 @@ export const TronIcon = (props: SVGProps<SVGSVGElement>) => (
 		c-13.8,10.1-38.5,19.5-63.6,24c-14.3,2.6-28.6,3-32.9,0.9c-2.8-1.4-3.2-2.5-2.2-6.1c2.1-7.5,8.9-15.7,19.5-23.4
 		c5.4-3.9,27.3-17.2,37.5-22.8c16.8-9.2,30.4-14.7,39.6-16c2.9-0.4,6.4-0.5,7.5,0c1.8,0.7,3.8,6,4.6,12.4
 		C1448.9,531.2,1448.7,546.2,1448.2,548.9z M1431.6,373.2l-0.2-0.1c-16.8-13.4-29.4-19.7-29.4-19.7c66.1-76,107-80.2,107-80.2
-		c4.5,6.1,7.4,13.9,9,22.9c0,0,0,0,0,0c9.3,53.4-26.8,147-26.8,147C1476.1,416.2,1455.8,392.4,1431.6,373.2L1431.6,373.2z"/>
+		c4.5,6.1,7.4,13.9,9,22.9c0,0,0,0,0,0c9.3,53.4-26.8,147-26.8,147C1476.1,416.2,1455.8,392.4,1431.6,373.2L1431.6,373.2z"
+      />
       <path id="Path_8583" fill="none" d="M1377.6,343.2c-0.2,0.2-0.3,0.5-0.5,0.7" />
       <path id="Path_8584" fill="none" d="M1509.1,476.9c-0.5,1.4-0.7,2.1-0.7,2.1" />
       <g id="Group_934">
@@ -217,7 +228,7 @@ export const TronIcon = (props: SVGProps<SVGSVGElement>) => (
         </g>
       </g>
       <path id="Path_8588" fill="none" d="M1175.1,347.1c-1-1.4-2.1-2.8-3.1-4.2" />
-      <path id="Path_8589" fill="none"d="M1035,480.8c1.1,3.4,1.8,5.2,1.8,5.2" />
+      <path id="Path_8589" fill="none" d="M1035,480.8c1.1,3.4,1.8,5.2,1.8,5.2" />
       <g id="Group_937">
         <g id="Group_936">
           <g id="Group_935">
@@ -253,12 +264,18 @@ export const TronIcon = (props: SVGProps<SVGSVGElement>) => (
       />
     </g>
   </svg>
-);
+  );
+TronIcon.displayName = 'TronIcon';
 
 export const TetherIcon = (props: SVGProps<SVGSVGElement>) => (
-    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 339.43 295.27" {...props} >
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 339.43 295.27" {...props}>
         <title>tether-usdt-logo</title>
         <path d="M62.15,1.45l-61.89,130a2.52,2.52,0,0,0,.54,2.94L167.95,294.56a2.55,2.55,0,0,0,3.53,0L338.63,134.4a2.52,2.52,0,0,0,.54-2.94l-61.89-130A2.5,2.5,0,0,0,275,0H64.45a2.5,2.5,0,0,0-2.3,1.45h0Z" style={{fill:"#50af95",fillRule:"evenodd"}}/>
         <path d="M191.19,144.8v0c-1.2.09-7.4,0.46-21.23,0.46-11,0-18.81-.33-21.55-0.46v0c-42.51-1.87-74.24-9.27-74.24-18.13s31.73-16.25,74.24-18.15v28.91c2.78,0.2,10.74.67,21.74,0.67,13.2,0,19.81-.55,21-0.66v-28.9c42.42,1.89,74.08,9.29,74.08,18.13s-31.65,16.24-74.08,18.12h0Zm0-39.25V79.68h59.2V40.23H89.21V79.68H148.4v25.86c-48.11,2.21-84.29,11.74-84.29,23.16s36.18,20.94,84.29,23.16v82.9h42.78V151.83c48-2.21,84.12-11.73,84.12-23.14s-36.09-20.93-84.12-23.15h0Zm0,0h0Z" style={{fill:"#fff",fillRule:"evenodd"}}/>
     </svg>
 );
+TetherIcon.displayName = 'TetherIcon';
+
+export const ICONS: FC<any>[] = [BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon, TronIcon, TetherIcon];
+
+    

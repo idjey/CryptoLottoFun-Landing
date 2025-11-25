@@ -1,68 +1,77 @@
 "use client";
 
+import { useState } from 'react';
 import FallingCrypto from '@/components/falling-crypto';
-import SignupForm from '@/components/signup-form';
+import Scoreboard from '@/components/scoreboard';
+import { Button } from '@/components/ui/button';
+import { type CryptoSymbol } from '@/components/falling-crypto';
+
+export type CollectedCoins = {
+  [key: string]: number;
+};
 
 export default function Home() {
+  const [gameStarted, setGameStarted] = useState(false);
+  const [collectedCoins, setCollectedCoins] = useState<CollectedCoins>({});
+  const [key, setKey] = useState(Date.now()); // Used to reset the FallingCrypto component
+
+  const handleGameStart = () => {
+    if (!gameStarted) {
+      setGameStarted(true);
+      resetGame();
+    }
+  };
+
+  const handleCollectCoin = (coin: CryptoSymbol) => {
+    const coinName = coin.Icon.displayName || 'Unknown';
+    setCollectedCoins(prev => ({
+      ...prev,
+      [coinName]: (prev[coinName] || 0) + 1,
+    }));
+  };
+
+  const resetGame = () => {
+    setCollectedCoins({});
+    setKey(Date.now()); // Change key to force re-mount of FallingCrypto
+  };
+
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background p-8 text-center">
-      <FallingCrypto />
-      <div className="relative z-10 flex flex-col items-center">
-        <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider text-primary animate-fade-in-down">
-          Crypto Lotto Fun
-        </h1>
-        <p className="mt-4 font-headline text-2xl md:text-3xl text-foreground/80 animate-fade-in-down animation-delay-300">
-          Coming Soon
-        </p>
-        <div className="mt-12 w-full max-w-md animate-fade-in-up animation-delay-700">
-          <SignupForm />
+    <main
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background p-8 text-center"
+      onClick={handleGameStart}
+    >
+      <FallingCrypto 
+        key={key} 
+        gameStarted={gameStarted} 
+        onCollectCoin={handleCollectCoin}
+      />
+      
+      {gameStarted && (
+        <>
+          <div className="absolute top-4 left-4 z-20">
+            <Scoreboard collectedCoins={collectedCoins} />
+          </div>
+          <div className="absolute top-4 right-4 z-20">
+            <Button onClick={(e) => { e.stopPropagation(); resetGame(); }}>Reset</Button>
+          </div>
+        </>
+      )}
+
+      <div className={`relative z-10 flex flex-col items-center transition-opacity duration-1000 ${gameStarted ? 'opacity-0' : 'opacity-100'}`}>
+        <div className="relative font-headline text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider text-primary">
+          <div className={`transition-transform duration-1000 ease-in-out ${gameStarted ? '-translate-x-full' : 'translate-x-0'}`}>
+            Crypto
+          </div>
+          <div className={`absolute top-0 left-0 w-full h-full transition-transform duration-1000 ease-in-out ${gameStarted ? 'translate-x-full' : 'translate-x-0'}`}>
+             Lotto Fun
+          </div>
         </div>
+
+        <p className={`mt-4 font-headline text-2xl md:text-3xl text-foreground/80 transition-opacity duration-500 ${gameStarted ? 'opacity-0' : 'opacity-100'}`}>
+          Click anywhere to start
+        </p>
       </div>
-      <style jsx global>{`
-        @keyframes fade-in-down {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in-down {
-          animation: fade-in-down 0.8s ease-out forwards;
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-        }
-        .animation-delay-300 {
-          animation-delay: 0.3s;
-        }
-        .animation-delay-500 {
-          animation-delay: 0.5s;
-        }
-        .animation-delay-700 {
-          animation-delay: 0.7s;
-        }
-        h1, p {
-          opacity: 0;
-          animation-fill-mode: forwards;
-        }
-        .w-full {
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-      `}</style>
+
     </main>
   );
 }
