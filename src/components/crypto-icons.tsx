@@ -160,7 +160,7 @@ export const TronIcon = (props: SVGProps<SVGSVGElement>) => (
 TronIcon.displayName = 'TronIcon';
 
 export const XrpIcon = (props: SVGProps<SVGSVGElement>) => (
-    <svg xmlnsXodm="http://www.corel.com/coreldraw/odm/2003" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 2500 2500" style={{enableBackground:'new 0 0 2500 2500'}} xmlSpace="preserve" {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 2500 2500" style={{enableBackground:'new 0 0 2500 2500'}} xmlSpace="preserve" {...props}>
         <g id="Layer_x0020_1">
             <g id="_2082244081712">
                 <circle cx="1250" cy="1250" r="1250"></circle>
