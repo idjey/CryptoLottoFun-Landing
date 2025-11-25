@@ -154,5 +154,22 @@ export const BitcoinCashIcon = (props: SVGProps<SVGSVGElement>) => (
 );
 BitcoinCashIcon.displayName = 'BitcoinCashIcon';
 
+export const TronIcon = (props: SVGProps<SVGSVGElement>) => (
+    <svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}><defs><style>{`.cls-1{fill:#ff060a;}`}</style></defs><title>tron</title><g id="tron"><path className="cls-1" d="M61.55,19.28c-3-2.77-7.15-7-10.53-10l-.2-.14a3.82,3.82,0,0,0-1.11-.62l0,0C41.56,7,3.63-.09,2.89,0a1.4,1.4,0,0,0-.58.22L2.12.37a2.23,2.23,0,0,0-.52.84l-.05.13v.71l0,.11C5.82,14.05,22.68,53,26,62.14c.2.62.58,1.8,1.29,1.86h.16c.38,0,2-2.14,2-2.14S58.41,26.74,61.34,23a9.46,9.46,0,0,0,1-1.48A2.41,2.41,0,0,0,61.55,19.28ZM36.88,23.37,49.24,13.12l7.25,6.68Zm-4.8-.67L10.8,5.26l34.43,6.35ZM34,27.27l21.78-3.51-24.9,30ZM7.91,7,30.3,26,27.06,53.78Z"/></g></svg>
+);
+TronIcon.displayName = 'TronIcon';
 
-export const ICONS: FC<any>[] = [BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon, TetherIcon, CardanoIcon, BitcoinCashIcon];
+export const XrpIcon = (props: SVGProps<SVGSVGElement>) => (
+    <svg xmlnsXodm="http://www.corel.com/coreldraw/odm/2003" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 2500 2500" style={{enableBackground:'new 0 0 2500 2500'}} xmlSpace="preserve" {...props}>
+        <g id="Layer_x0020_1">
+            <g id="_2082244081712">
+                <circle cx="1250" cy="1250" r="1250"></circle>
+                <path style={{fill: '#FFFFFF'}} d="M1820.4,549.8h233.2l-485.5,503.4c-175.8,182.3-460.8,182.3-636.2,0L446.3,549.8h233.2l368.7,382.4    c111.5,115.3,291.8,115.3,403,0L1820.4,549.8L1820.4,549.8z M676.6,1950.2H443.3l488.6-506.8c175.8-182.3,460.8-182.3,636.6,0    l488.6,506.8h-233.3l-371.8-385.8c-111.5-115.3-291.8-115.3-403,0L676.6,1950.2z"></path>
+            </g>
+        </g>
+    </svg>
+);
+XrpIcon.displayName = 'XrpIcon';
+
+
+export const ICONS: FC<any>[] = [BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon, TetherIcon, CardanoIcon, BitcoinCashIcon, TronIcon, XrpIcon];
