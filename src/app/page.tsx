@@ -63,7 +63,7 @@ export default function Home() {
             Crypto
           </div>
           <div className={`absolute top-0 left-0 w-full h-full transition-transform duration-1000 ease-in-out ${gameStarted ? 'translate-x-full' : 'translate-x-0'}`}>
-             Lotto Fun
+            Lotto Fun
           </div>
         </div>
 
