@@ -14,6 +14,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { type CryptoSymbol } from '@/components/falling-crypto';
+import { ResetIcon } from '@/components/crypto-icons';
 
 export type CollectedCoins = {
   [key: string]: number;
@@ -82,7 +83,23 @@ export default function Home() {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-              <Button onClick={(e) => { e.stopPropagation(); resetGame(); }}>Reset</Button>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="h-9 w-9"
+                      onClick={(e) => { e.stopPropagation(); resetGame(); }}
+                    >
+                      <ResetIcon className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Reset Game</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </>
         )}
