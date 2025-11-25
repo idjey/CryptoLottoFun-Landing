@@ -14,9 +14,6 @@ export default function Home() {
         <p className="mt-4 font-headline text-2xl md:text-3xl text-foreground/80 animate-fade-in-down animation-delay-300">
           Coming Soon
         </p>
-        <p className="mt-8 max-w-2xl font-body text-lg md:text-xl text-foreground/60 leading-relaxed animate-fade-in-up animation-delay-500">
-          Get ready for the most thrilling cryptocurrency lottery experience! Win big with your favorite coins in a provably fair and transparent gaming environment. We're putting the finishing touches on our platform. Sign up below to be the first to know when we go live!
-        </p>
         <div className="mt-12 w-full max-w-md animate-fade-in-up animation-delay-700">
           <SignupForm />
         </div>
