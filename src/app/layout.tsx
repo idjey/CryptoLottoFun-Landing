@@ -12,6 +12,10 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://cryptolotto.fun',
   },
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://cryptolotto.fun",
+  }
 };
 
 export default function RootLayout({
