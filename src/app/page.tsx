@@ -1,9 +1,11 @@
+
 "use client";
 
 import { useState } from 'react';
 import { Info } from 'lucide-react';
 import FallingCrypto from '@/components/falling-crypto';
 import Scoreboard from '@/components/scoreboard';
+import Sparkle, { useSparkles } from '@/components/sparkle';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -21,6 +23,7 @@ export default function Home() {
   const [gameStarted, setGameStarted] = useState(false);
   const [collectedCoins, setCollectedCoins] = useState<CollectedCoins>({});
   const [key, setKey] = useState(Date.now()); // Used to reset the FallingCrypto component
+  const { sparkles, triggerSparkles } = useSparkles();
 
   const handleGameStart = () => {
     if (!gameStarted) {
@@ -29,7 +32,8 @@ export default function Home() {
     }
   };
 
-  const handleCollectCoin = (coin: CryptoSymbol) => {
+  const handleCollectCoin = (coin: CryptoSymbol, event: React.MouseEvent) => {
+    triggerSparkles(event.clientX, event.clientY);
     const coinName = coin.Icon.displayName || 'Unknown';
     setCollectedCoins(prev => ({
       ...prev,
@@ -55,6 +59,10 @@ export default function Home() {
           gameStarted={gameStarted} 
           onCollectCoin={handleCollectCoin}
         />
+
+        {sparkles.map(sparkle => (
+          <Sparkle key={sparkle.id} x={sparkle.x} y={sparkle.y} />
+        ))}
         
         {gameStarted && (
           <>

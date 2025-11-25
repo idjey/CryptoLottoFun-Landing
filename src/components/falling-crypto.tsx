@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, type FC } from 'react';
@@ -17,7 +18,7 @@ export interface CryptoSymbol {
 
 interface FallingCryptoProps {
   gameStarted: boolean;
-  onCollectCoin: (coin: CryptoSymbol) => void;
+  onCollectCoin: (coin: CryptoSymbol, event: React.MouseEvent) => void;
 }
 
 const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
@@ -95,7 +96,7 @@ const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
   const handleIconClick = (e: React.MouseEvent, symbol: CryptoSymbol) => {
     e.stopPropagation();
     if (!gameStarted) return;
-    onCollectCoin(symbol);
+    onCollectCoin(symbol, e);
     setSymbols(prev => prev.map(s => s.id === symbol.id ? resetSymbol(s) : s));
   };
 
