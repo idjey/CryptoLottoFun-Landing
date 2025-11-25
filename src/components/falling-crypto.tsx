@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, type FC } from 'react';
-import { BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon } from '@/components/crypto-icons';
+import { BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon, TronIcon } from '@/components/crypto-icons';
 
-const ICONS: FC<any>[] = [BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon];
+const ICONS: FC<any>[] = [BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon, TronIcon];
 const NUM_ICONS = 40;
 
 interface CryptoSymbol {
@@ -51,31 +51,21 @@ const FallingCrypto = () => {
       setSymbols(prevSymbols =>
         prevSymbols.map(symbol => {
           let newY = symbol.y + symbol.speed;
-          let newX = symbol.x;
-          let newOpacity = symbol.opacity;
-          let newSpeed = symbol.speed;
-          let newSize = symbol.size;
-          let newIcon = symbol.Icon;
 
           // Reset when it goes off-screen
           if (newY > 110) {
-            newY = Math.random() * -20 - 5; // Reset further up
-            newX = Math.random() * 100; // New random horizontal position
-            newSpeed = Math.random() * 0.5 + 0.2; // New random speed
-            newSize = Math.random() * 24 + 16; // New random size
-            newOpacity = Math.random() * 0.2 + 0.2; // New random opacity
-            newIcon = ICONS[Math.floor(Math.random() * ICONS.length)]; // New random icon
+            return {
+              ...symbol,
+              y: Math.random() * -20 - 5,
+              x: Math.random() * 100,
+              speed: Math.random() * 0.5 + 0.2,
+              size: Math.random() * 24 + 16,
+              opacity: Math.random() * 0.2 + 0.2,
+              Icon: ICONS[Math.floor(Math.random() * ICONS.length)],
+            };
           }
 
-          return {
-            ...symbol,
-            y: newY,
-            x: newX,
-            opacity: newOpacity,
-            speed: newSpeed,
-            size: newSize,
-            Icon: newIcon,
-          };
+          return { ...symbol, y: newY };
         })
       );
       animationFrameId = requestAnimationFrame(animate);
