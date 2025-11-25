@@ -24,13 +24,23 @@ interface FallingCryptoProps {
 const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
   const [symbols, setSymbols] = useState<CryptoSymbol[]>([]);
   const [screenHeight, setScreenHeight] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkIsMobile = () => window.innerWidth < 768;
+    setIsMobile(checkIsMobile());
     setScreenHeight(window.innerHeight);
-    const handleResize = () => setScreenHeight(window.innerHeight);
+    const handleResize = () => {
+      setScreenHeight(window.innerHeight);
+      setIsMobile(checkIsMobile());
+    }
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const getSymbolSize = () => {
+    return isMobile ? Math.random() * 20 + 28 : Math.random() * 24 + 16;
+  }
 
   const resetSymbol = (symbol: CryptoSymbol): CryptoSymbol => {
     return {
@@ -38,7 +48,7 @@ const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
       y: Math.random() * -20 - 5,
       x: Math.random() * 100,
       speed: Math.random() * 0.5 + 0.2,
-      size: Math.random() * 24 + 16,
+      size: getSymbolSize(),
       opacity: gameStarted ? (Math.random() * 0.5 + 0.5) : (Math.random() * 0.2 + 0.2), // More opaque when game starts
       Icon: ICONS[Math.floor(Math.random() * ICONS.length)],
     };
@@ -52,7 +62,7 @@ const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
           Icon: ICONS[i % ICONS.length],
           x: Math.random() * 100,
           y: Math.random() * -100 - 20,
-          size: Math.random() * 24 + 16,
+          size: getSymbolSize(),
           speed: Math.random() * 0.5 + 0.2,
           opacity: Math.random() * 0.2 + 0.2,
         };
@@ -60,7 +70,7 @@ const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
       });
       setSymbols(initialSymbols);
     }
-  }, [screenHeight]);
+  }, [screenHeight, isMobile]);
 
   useEffect(() => {
     if (gameStarted) {
