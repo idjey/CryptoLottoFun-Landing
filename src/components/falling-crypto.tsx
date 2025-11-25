@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, type FC } from 'react';
-import { BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon, TronIcon } from '@/components/crypto-icons';
+import { BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon } from '@/components/crypto-icons';
 
-const ICONS: FC<any>[] = [BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon, TronIcon];
+const ICONS: FC<any>[] = [BitcoinIcon, EthereumIcon, UsdcIcon, SolanaIcon, BinanceIcon];
 const NUM_ICONS = 40;
 
 interface CryptoSymbol {
