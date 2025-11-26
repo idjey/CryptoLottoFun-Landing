@@ -15,16 +15,17 @@ import { useToast } from "@/hooks/use-toast";
 import { BitcoinIcon, EthereumIcon, SolanaIcon, DogeIcon } from "./crypto-icons";
 import { Copy } from "lucide-react";
 
-// NOTE: Replace with your actual wallet addresses
+// Wallet addresses are now fetched from environment variables
 const wallets = {
-  bitcoin: "bc1q...",
-  ethereum: "0x...",
-  solana: "SoL...",
-  dogecoin: "Doge...",
-  shibainu: "0x...", // Shiba Inu is an ERC-20 token, so it uses an Ethereum address
+  bitcoin: process.env.NEXT_PUBLIC_BITCOIN_ADDRESS || "3ESz5o1tygKGQT89AkkuXSCoXwqzjvDFYH",
+  ethereum: process.env.NEXT_PUBLIC_ETHEREUM_ADDRESS || "0x1B4800790B7817DD8B795874Bc061d26B929c817",
+  solana: process.env.NEXT_PUBLIC_SOLANA_ADDRESS || "8ve1dU3Ab22WtQ5sSUJChSwcGqViJ55YwNqDqxL6j8ZS",
+  dogecoin: process.env.NEXT_PUBLIC_DOGECOIN_ADDRESS || "DNj6RNvdmEV8G4suC9SRtwNDFq2STmHCcT",
+  shibainu: process.env.NEXT_PUBLIC_SHIBAINU_ADDRESS || "0xC8792Ca4BDaa0b350f7A0D33416Fdb919ded5016", // Shiba Inu is an ERC-20 token, so it uses an Ethereum address
 };
 
 const QRCode = ({ address }: { address: string }) => {
+  if (!address) return null;
   return (
     <div className="flex items-center justify-center p-4 bg-white rounded-md">
       <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${address}`} alt="QR Code" />
@@ -42,6 +43,14 @@ const WalletTabContent = ({
   icon: React.ReactNode;
 }) => {
   const { toast } = useToast();
+
+  if (!address) {
+    return (
+        <div className="flex flex-col items-center gap-4 text-center text-muted-foreground py-8">
+            <p>The {name} wallet address has not been configured.</p>
+        </div>
+    );
+  }
 
   const handleCopy = () => {
     navigator.clipboard.writeText(address);
