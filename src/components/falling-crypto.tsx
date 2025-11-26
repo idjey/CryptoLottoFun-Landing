@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect, type FC, useRef, createRef } from 'react';
-import { ICONS } from '@/components/crypto-icons';
+import { ICONS, GiftIcon } from '@/components/crypto-icons';
 
 const NUM_ICONS = 40;
 
@@ -14,6 +14,7 @@ export interface CryptoSymbol {
   size: number;
   speed: number;
   opacity: number;
+  isGift?: boolean;
 }
 
 interface FallingCryptoProps {
@@ -46,14 +47,16 @@ const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
   }
 
   const createSymbol = (id: number): CryptoSymbol => {
+    const isGift = Math.random() < 0.05; // 5% chance of being a gift
     return {
       id: id,
-      Icon: ICONS[Math.floor(Math.random() * ICONS.length)],
+      Icon: isGift ? GiftIcon : ICONS[Math.floor(Math.random() * ICONS.length)],
       x: Math.random() * 100,
       y: Math.random() * -100 - 20,
       size: getSymbolSize(),
       speed: Math.random() * 0.5 + 0.2,
       opacity: gameStarted ? (Math.random() * 0.5 + 0.5) : (Math.random() * 0.2 + 0.2),
+      isGift: isGift,
     };
   };
 
@@ -84,8 +87,6 @@ const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
         if (newY > 110) {
           const newSymbol = createSymbol(symbol.id);
           liveSymbols[i] = newSymbol;
-          newY = newSymbol.y;
-          // We need to update the state here so the new Icon component is rendered
           setSymbols(prev => prev.map(s => s.id === symbol.id ? newSymbol : s));
         } else {
           liveSymbols[i].y = newY;
@@ -106,13 +107,12 @@ const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [symbols.length]); // Only re-run when the number of symbols changes
+  }, [symbols.length]); 
 
   const handleIconClick = (e: React.MouseEvent, symbol: CryptoSymbol) => {
     e.stopPropagation();
     if (!gameStarted) return;
     onCollectCoin(symbol, e);
-    // This will trigger the useEffect to reset the symbol state
     const newSymbol = createSymbol(symbol.id);
     setSymbols(prev => prev.map(s => s.id === symbol.id ? newSymbol : s));
   };
@@ -133,12 +133,12 @@ const FallingCrypto = ({ gameStarted, onCollectCoin }: FallingCryptoProps) => {
           onClick={(e: React.MouseEvent) => handleIconClick(e, symbol)}
         >
           <symbol.Icon
-            className={`text-primary transition-all duration-300 ${gameStarted ? 'hover:scale-125 hover:opacity-100' : ''}`}
+            className={`text-primary transition-all duration-300 ${gameStarted ? 'hover:scale-125 hover:opacity-100' : ''} ${symbol.isGift ? 'animate-pulse' : ''}`}
             style={{
               width: `${symbol.size}px`,
               height: `${symbol.size}px`,
               opacity: symbol.opacity,
-              filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.7))',
+              filter: `drop-shadow(0 0 8px hsl(var(--primary) / ${symbol.isGift ? 1 : 0.7}))`,
             }}
           />
         </div>

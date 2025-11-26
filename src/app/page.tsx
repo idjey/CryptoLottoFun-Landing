@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Info } from 'lucide-react';
+import { Info, Gift } from 'lucide-react';
 import FallingCrypto from '@/components/falling-crypto';
 import Scoreboard from '@/components/scoreboard';
 import { Button } from '@/components/ui/button';
@@ -15,6 +15,7 @@ import {
 import { type CryptoSymbol } from '@/components/falling-crypto';
 import { ResetIcon } from '@/components/crypto-icons';
 import ClickSpark from '@/components/click-spark';
+import { SupportDialog } from '@/components/support-dialog';
 
 export type CollectedCoins = {
   [key: string]: number;
@@ -24,6 +25,7 @@ export default function Home() {
   const [gameStarted, setGameStarted] = useState(false);
   const [collectedCoins, setCollectedCoins] = useState<CollectedCoins>({});
   const [key, setKey] = useState(Date.now()); // Used to reset the FallingCrypto component
+  const [isSupportDialogOpen, setIsSupportDialogOpen] = useState(false);
 
   const handleGameStart = () => {
     if (!gameStarted) {
@@ -33,7 +35,10 @@ export default function Home() {
   };
 
   const handleCollectCoin = (coin: CryptoSymbol, event: React.MouseEvent) => {
-    // The spark effect is now handled by the ClickSpark component wrapper
+    if (coin.Icon.displayName === 'GiftIcon') {
+        setIsSupportDialogOpen(true);
+        return;
+    }
     const coinName = coin.Icon.displayName || 'Unknown';
     setCollectedCoins(prev => ({
       ...prev,
@@ -67,6 +72,18 @@ export default function Home() {
                 <Scoreboard collectedCoins={collectedCoins} />
               </div>
               <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="outline" size="icon" className="h-9 w-9" onClick={(e) => { e.stopPropagation(); setIsSupportDialogOpen(true); }}>
+                        <Gift className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Support the Fun!</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -119,6 +136,7 @@ export default function Home() {
 
         </main>
       </ClickSpark>
+      <SupportDialog open={isSupportDialogOpen} onOpenChange={setIsSupportDialogOpen} />
     </>
   );
 }
